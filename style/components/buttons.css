@@ -1,0 +1,76 @@
+.buttons-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.btn {
+  align-items: center;
+  appearance: none;
+  background-color: #fcfcfd;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395a;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono", monospace;
+  height: 36px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  margin: 20px 10px;
+  overflow: hidden;
+  padding: 0 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow 0.15s, transform 0.15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow, transform;
+  width: 76px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.btn:focus {
+  box-shadow: #d6d6e7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+}
+
+.btn:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px,
+    rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #d6d6e7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.btn:active {
+  box-shadow: #d6d6e7 0 3px 7px inset;
+  transform: translateY(2px);
+}
+.add-btn {
+  background: rgb(102, 143, 233);
+  background: linear-gradient(
+    257deg,
+    rgb(176, 225, 238) 8%,
+    rgb(109, 139, 161) 55%,
+    rgb(42, 54, 63, 1) 88%
+  );
+  color: white;
+}
+
+.submit-btn {
+  background: rgb(16, 226, 72);
+  background: linear-gradient(
+    257deg,
+    rgb(101, 192, 125) 8%,
+    rgba(30, 116, 58, 1) 55%,
+    rgba(0, 48, 18, 1) 88%
+  );
+  color: white;
+}
