@@ -1,4 +1,3 @@
-// Paselektinu formoje esancius elementus
 const plannerForm = document.querySelector('#planner-form');
 const workingScope = document.querySelector('#working-scope');
 const deadline = document.querySelector('#deadline');
@@ -14,11 +13,9 @@ let countDays;
 let alertMsg = '';
 let freeTimeCount = 0;
 
-// Susikuriu sventiniu dienu masyva:
 const celebrationDays = [[1, 1], [2, 16], [3, 11], [4, 20], [4, 21], [5, 1], [6, 24], [7, 6], [8, 15], [11, 1], [11, 2], [12, 24], [12, 25], [12, 26]];
 const busyDayData = [];
 
-// Add date mygtukui sukuriu funkcionaluma: prideti elementus i lista
 addBtn.addEventListener('click', () => {
    const busyDate = plannerForm['busy-date'].value;
    const busyTime = plannerForm['busy-time'].value;
@@ -30,7 +27,6 @@ addBtn.addEventListener('click', () => {
    }
 
    busyDayData.push(addedObj);
-   console.log(busyDayData);
 
    const busyDateAndTimeList = document.querySelector('#busy-date-and-time-list');
    const busyDataItem = document.createElement('div');
@@ -42,7 +38,6 @@ addBtn.addEventListener('click', () => {
    const busyTimeElement = document.createElement('p');
    busyTimeElement.innerHTML = `<p style="color:white">Time: ${busyTime}</p>`;
 
-   // Sukuriu elemento istrynimo mygtuka
    const deleteItemBtn = document.createElement('button');
    deleteItemBtn.classList.add('btn', 'del-btn')
    deleteItemBtn.textContent = ('X');
@@ -59,19 +54,18 @@ addBtn.addEventListener('click', () => {
    showResponse();
 })
 
-// Sukuriu formai ivyki: kai forma submitinama, gaunami formos duomenys, kurie panaudojami lsiko apskaiciavimui:
 plannerForm.addEventListener('submit', (event) => {
    event.preventDefault();
+
    alertMsg.textContent = '';
 
    const form = event.target;
-
    const workingScope = form['working-scope'].value;
    const deadline = form.deadline.value;
    const busyDate = form['busy-date'].value;
    const busyTime = form['busy-time'].value;
 
-   console.log(formValidation()); //false
+   formValidation();
 
    if (!formValidation()) {
       return false;
@@ -79,11 +73,9 @@ plannerForm.addEventListener('submit', (event) => {
 
    const deadlineValue = new Date(event.target.deadline.value);
    let day = new Date();
-   console.log(day);
 
    countDays = 0;
-   console.log(totalWorkingScope(day, deadlineValue));
-
+   totalWorkingScope(day, deadlineValue);
    getTimeInHours(day, deadlineValue);
 })
 
@@ -93,8 +85,8 @@ function totalWorkingScope(day, deadlineValue) {
 
       const isWeekend = day.getDay() === 0 || day.getDay() === 6;
 
-      const dateMonth = (day.getMonth() + 1); // datos menuo
-      const dateDay = day.getDate(); // datos diena
+      const dateMonth = (day.getMonth() + 1);
+      const dateDay = day.getDate();
 
       const isHoliday = celebrationDays.some(holiday => dateMonth === holiday[0] && dateDay === holiday[1]);
 
@@ -103,17 +95,13 @@ function totalWorkingScope(day, deadlineValue) {
       }
    }
 
-   console.log(countDays);
-
    freeTimeCount = (24 - 8) * countDays;
-   console.log(freeTimeCount);
    return freeTimeCount;
 }
 
 function getTimeInHours(day, deadlineValue) {
    let time = 0;
 
-   // Pasiskaiciuoju turima laika valandomis:
    if (!busyDayData) {
       freeTimeCount = (24 - 8) * countDays;
    } else {
@@ -126,16 +114,13 @@ function getTimeInHours(day, deadlineValue) {
    if (freeTimeCount < workingScope.value) {
       const negativeAnswer = 'There is not enough time!😞';
       renderAlertMsg(negativeAnswer, 'red');
-      // console.log('There is not enough time ');
    } else {
       const positiveAnswer = 'Get ready to work!😉';
       renderAlertMsg(positiveAnswer, 'green');
-      // console.log('Get ready to work!');
    }
-   console.log(totalWorkingScope(day, deadlineValue) - time);
+   totalWorkingScope(day, deadlineValue) - time;
 }
 
-// Issokancios zinutes sukurimo f-ja
 function renderAlertMsg(text, color) {
    const alertMsg = document.querySelector('#alert-msg');
    alertMsg.textContent = text;
