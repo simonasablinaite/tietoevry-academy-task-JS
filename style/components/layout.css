@@ -1,17 +1,22 @@
 @media (min-width: 768px) {
+  h1 {
+    font-size: 50px;
+  }
   .form-control {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
   }
   .buttons-wrapper {
-    margin-left: 195px;
+    display: flex;
+    gap: 152px;
+    margin-left: 28px;
   }
   label {
-    font-size: 16px;
+    font-size: 18px;
   }
   input {
-    font-size: 18px;
+    font-size: 20px;
   }
 }
 
@@ -29,9 +34,53 @@
   .response-wrapper::scrollbar-width {
     width: 1px;
   }
+  h1 {
+    font-size: 60px;
+  }
   .planner-wrapper {
     margin-right: 50px;
     border-right: 1px solid rgb(100, 163, 121) 55%;
     border-top: none;
   }
+  label {
+    font-size: 20px;
+  }
+  input {
+    font-size: 20px;
+  }
+}
+
+@media (min-width: 1200px) {
+  h1 {
+    font-size: 80px;
+  }
+  img {
+    height: 80px;
+  }
+  .busy-data-item p {
+    font-size: 22px;
+  }
+  label {
+    font-size: 25px;
+  }
+  input {
+    width: 250px;
+    font-size: 24px;
+  }
+  .btn {
+    height: 50px;
+    font-size: 18px;
+    width: 160px;
+  }
+  .del-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .form-control {
+    gap: 40px;
+  }
+}
+
+@media (min-width: 1200px) {
 }

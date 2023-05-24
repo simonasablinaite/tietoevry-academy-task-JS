@@ -16,7 +16,6 @@ let freeTimeCount = 0;
 
 // Susikuriu sventiniu dienu masyva:
 const celebrationDays = [[1, 1], [2, 16], [3, 11], [4, 20], [4, 21], [5, 1], [6, 24], [7, 6], [8, 15], [11, 1], [11, 2], [12, 24], [12, 25], [12, 26]];
-
 const busyDayData = [];
 
 // Add date mygtukui sukuriu funkcionaluma: prideti elementus i lista
@@ -53,8 +52,8 @@ addBtn.addEventListener('click', () => {
 
       const deletedMsgText = `Date ${busyDate} and Time ${busyTime} hours was deleted!`;
       renderAlertMsg(deletedMsgText, 'red');
-
    })
+
    busyDataItem.append(busyDateElement, busyTimeElement, deleteItemBtn);
    busyDateAndTimeList.append(busyDataItem);
    showResponse();
@@ -113,18 +112,17 @@ function totalWorkingScope(day, deadlineValue) {
 
 function getTimeInHours(day, deadlineValue) {
    let time = 0;
+
    // Pasiskaiciuoju turima laika valandomis:
    if (!busyDayData) {
       freeTimeCount = (24 - 8) * countDays;
    } else {
-
       busyDayData.map(data => {
          time += Number(data.time);
          console.log(new Date(data.date).getDate());
-
-         console.log(data.time);
       })
    }
+
    if (freeTimeCount < workingScope.value) {
       const negativeAnswer = 'There is not enough time!😞';
       renderAlertMsg(negativeAnswer, 'red');
@@ -153,16 +151,24 @@ function formValidation() {
    workingScope.value;
    deadline.value;
    busyDate.value;
-   console.log(busyTime.value);
    let isValid = true;
+   let inputMsg = '';
 
    if (workingScope.value.length == 0 || deadline.value == '') {
-      const inputMsg = 'Must fill the workscope and deadline fields!';
+      inputMsg = 'Must fill the workscope and deadline fields!';
       renderAlertMsg(inputMsg, 'red');
       isValid = false;
    }
+
+   if (busyDate.value > deadline.value) {
+      inputMsg = 'The entered date exceeds the deadline!';
+      renderAlertMsg(inputMsg, 'red');
+      isValid = false;
+   }
+
    return isValid;
 }
+
 function showResponse() {
    setTimeout(() => {
       responseContainer.style.display = 'flex';

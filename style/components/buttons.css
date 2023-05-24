@@ -1,7 +1,6 @@
 .buttons-wrapper {
   display: flex;
   justify-content: flex-end;
-  gap: 20px;
 }
 
 .btn {
@@ -33,7 +32,7 @@
   touch-action: manipulation;
   white-space: nowrap;
   will-change: box-shadow, transform;
-  width: 76px;
+  width: 100px;
   font-size: 12px;
   font-weight: 900;
 }
