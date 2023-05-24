@@ -74,3 +74,17 @@
   );
   color: white;
 }
+
+.del-btn {
+  width: 20px;
+  padding: 10px;
+  height: 20px;
+  background: rgb(16, 226, 72);
+  background: linear-gradient(
+    257deg,
+    rgb(247, 87, 87) 8%,
+    rgb(247, 45, 45) 55%,
+    rgb(97, 14, 14) 88%
+  );
+  color: white;
+}

@@ -1,0 +1,15 @@
+span {
+  display: none;
+  font-size: 12px;
+  padding: 5px;
+  color: red;
+}
+
+#alert-msg {
+  display: none;
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 400;
+  position: relative;
+  top: 30px;
+}

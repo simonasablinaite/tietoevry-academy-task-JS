@@ -1,11 +1,11 @@
 .response-wrapper {
-  padding: 50px;
-  border-right: 1px solid #3e9887;
+  padding: 30px;
 }
 
 .planner-logo-img {
   width: 50px;
 }
+
 .title-wrapper {
   display: flex;
   justify-content: center;
@@ -23,4 +23,14 @@ h1 {
 
 .response-container {
   display: none;
+  margin-top: 20px;
+  display: flex;
+  border: 2px solid #3e9887;
+  padding: 5px;
+}
+
+.busy-data-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
