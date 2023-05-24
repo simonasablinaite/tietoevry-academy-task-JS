@@ -6,10 +6,10 @@ const busyDate = document.querySelector('#busy-date');
 const busyTime = document.querySelector('#busy-time');
 const addBtn = document.querySelector('.add-btn');
 const submitBtn = document.querySelector('.submit-btn');
-const responseContainer = document.querySelector('.response-container')
+const responseContainer = document.querySelector('.response-container');
+const titleName = document.querySelector('h1');
+const logo = document.querySelector('img');
 
-
-//variables
 let countDays;
 let alertMsg = '';
 let freeTimeCount = 0;
@@ -57,6 +57,7 @@ addBtn.addEventListener('click', () => {
    })
    busyDataItem.append(busyDateElement, busyTimeElement, deleteItemBtn);
    busyDateAndTimeList.append(busyDataItem);
+   showResponse();
 })
 
 // Sukuriu formai ivyki: kai forma submitinama, gaunami formos duomenys, kurie panaudojami lsiko apskaiciavimui:
@@ -164,7 +165,9 @@ function formValidation() {
 }
 function showResponse() {
    setTimeout(() => {
-      responseContainer.style.display = 'flex'
+      responseContainer.style.display = 'flex';
+      titleName.style.display = 'none';
+
    })
 }
 

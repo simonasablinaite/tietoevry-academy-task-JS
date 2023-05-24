@@ -4,6 +4,7 @@ body * {
   padding: 0;
   vertical-align: top;
   box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 form {
@@ -14,5 +15,4 @@ form {
 .container {
   display: flex;
   flex-direction: column;
-  gap: 50px;
 }

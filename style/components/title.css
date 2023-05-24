@@ -18,19 +18,28 @@ h1 {
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   font-weight: 100;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .response-container {
   display: none;
   margin-top: 20px;
-  display: flex;
   border: 2px solid #3e9887;
+  border-radius: 5px;
   padding: 5px;
+  max-height: 60px;
+  overflow: scroll;
 }
 
 .busy-data-item {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.busy-data-item p {
+  margin-left: 10px;
+  font-size: 12px;
+  padding: 0;
 }

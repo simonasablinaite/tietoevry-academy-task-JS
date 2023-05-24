@@ -1,5 +1,6 @@
 .planner-wrapper {
-  border-top: 1px dashed rgb(81, 105, 92);
+  border-top: outset;
+  border-color: #11ad96;
   padding-top: 10px;
   display: flex;
   flex-direction: column;
@@ -13,10 +14,10 @@
   justify-content: center;
   margin-top: 20px;
 }
+
 label {
   text-align: start;
   margin-bottom: 5px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 14px;
   font-weight: 600;
   font-style: italic;

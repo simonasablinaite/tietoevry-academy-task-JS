@@ -7,7 +7,7 @@ span {
 
 #alert-msg {
   display: none;
-  margin-top: 20px;
+  text-align: center;
   font-size: 20px;
   font-weight: 400;
   position: relative;
