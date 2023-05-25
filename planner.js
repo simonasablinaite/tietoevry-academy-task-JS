@@ -14,9 +14,9 @@ let alertMsg = '';
 let freeTimeCount = 0;
 
 const celebrationDays = [[1, 1], [2, 16], [3, 11], [4, 20], [4, 21], [5, 1], [6, 24], [7, 6], [8, 15], [11, 1], [11, 2], [12, 24], [12, 25], [12, 26]];
-const busyDayData = [];
+let busyDayData = [];
 
-const workingScopeDays = [];
+let workingScopeDays = [];
 
 
 const addZero = (i) => {
@@ -98,45 +98,49 @@ plannerForm.addEventListener('submit', (event) => {
    countDays = 0;
    totalWorkingScope(day, deadlineValue);
    getTimeInHours(day, deadlineValue);
-   console.log(workingScopeDays.length);
-   console.log(busyDayData[0]);
-   console.log(busyDayData.length);
+
    for (let i = 0; i < workingScopeDays.length - 1; i++) {
-      console.log(workingScopeDays[i].date.length);
       for (let j = 0; j < busyDayData.length; j++) {
-         console.log(busyDayData[j].date.length);
          if (workingScopeDays[i].date.trim() == busyDayData[j].date) {
             workingScopeDays[i].time -= busyDayData[j].time;
          }
       }
    }
-   console.log(workingScopeDays);
-
-   let workingScopeDaysValue = workingScopeDays;
 
    let count = 0;
-   let temp = Number(workingScope); //10 val
-   console.log(temp);
-   console.log(workingScopeDaysValue);
-   workingScopeDaysValue.map(element => {
+   let workingHours = Number(workingScope); //10 val
 
-      if (temp > element.time) {
-         console.log(element.time);
-
-         temp -= element.time;
-         element.time = 0;
+   workingScopeDays.map((element) => {
+      if (workingHours > element.time) {
+         workingHours -= element.time;
          count++;
-      } else if (temp > 0) {
-         element.time -= temp;
-         temp = 0;
+      } else if (workingHours > 0) {
+         element.time = workingHours;
+         workingHours = 0;
          count++;
       }
-   })
-   const counting = workingScopeDaysValue.slice(0, count);
+   });
+   const counting = workingScopeDays.slice(0, count);
    console.log(counting);
-   console.log(workingScopeDaysValue);
+   console.log(busyDayData);
+
+   const mainContentEl = document.getElementById('main-content');
+
+   if (counting) {
+      const ulEl = document.createElement('ul');
+
+      counting.map((item) => {
+         const liEl = document.createElement('li');
+         liEl.textContent = `${item.date} ${item.time}`;
+
+         ulEl.appendChild(liEl);
+      });
+
+      mainContentEl.append(ulEl);
+   }
+
    plannerForm.reset();
-})
+});
 
 function totalWorkingScope(day, deadlineValue) {
 
