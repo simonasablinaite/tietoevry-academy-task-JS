@@ -8,6 +8,7 @@ const submitBtn = document.querySelector('.submit-btn');
 const responseContainer = document.querySelector('.response-container');
 const titleName = document.querySelector('h1');
 const logo = document.querySelector('img');
+const plannerResponse = document.querySelector('#main-content');
 
 let countDays;
 let alertMsg = '';
@@ -82,10 +83,6 @@ plannerForm.addEventListener('submit', (event) => {
 
    const form = event.target;
    const workingScope = form['working-scope'].value;
-   // const deadline = form.deadline.value;
-   // const busyDate = form['busy-date'].value;
-   // const busyTime = form['busy-time'].value;
-
    formValidation();
 
    if (!formValidation()) {
@@ -131,9 +128,11 @@ plannerForm.addEventListener('submit', (event) => {
 
       counting.map((item) => {
          const liEl = document.createElement('li');
-         liEl.textContent = `${item.date} ${item.time}`;
+         liEl.textContent = `In ${item.date} you must write ${item.time} hours/day`;
 
          ulEl.appendChild(liEl);
+         const workingPlanText = 'Get ready to work!😉';
+         renderAlertMsg(workingPlanText, 'green');
       });
 
       mainContentEl.append(ulEl);
@@ -200,8 +199,7 @@ function getTimeInHours(day, deadlineValue) {
    }
 
    const workingPlan = Math.floor(Number(workingScope.value / countDays));
-   const workingPlanText = 'Get ready to work!😉' + ` You must to written ${workingPlan} hours/day`;
-   renderAlertMsg(workingPlanText, 'green');
+
    if (workingPlan > 24) {
       const workingPlanText = ' There are not enough hours in the day';
       renderAlertMsg(workingPlanText, 'red');
@@ -264,6 +262,7 @@ function showResponse() {
    setTimeout(() => {
       responseContainer.style.display = 'flex';
       titleName.style.display = 'none';
+      plannerResponse.style.display = 'flex';
    })
 }
 

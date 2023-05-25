@@ -13,3 +13,17 @@ span {
   position: relative;
   top: 30px;
 }
+
+#main-content {
+  display: none;
+  margin-top: 20px;
+  border: 2px solid #3e9887;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#main-content li {
+  list-style: none;
+  color: white;
+  font-size: 22px;
+}
