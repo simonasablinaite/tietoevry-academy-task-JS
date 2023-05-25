@@ -19,13 +19,13 @@ let busyDayData = [];
 
 let workingScopeDays = [];
 
-
 const addZero = (i) => {
    if (i < 10) {
       i = "0" + i;
    }
    return i;
 }
+
 const formatDate = (date) => {
    let yearFormat = date.getFullYear();
    let month = addZero(date.getMonth() + 1);
@@ -49,7 +49,6 @@ addBtn.addEventListener('click', (event) => {
    }
 
    busyDayData.push(addedObj);
-   console.log(busyDayData);
 
    const busyDateAndTimeList = document.querySelector('#busy-date-and-time-list');
    const busyDataItem = document.createElement('div');
@@ -117,10 +116,8 @@ plannerForm.addEventListener('submit', (event) => {
          count++;
       }
    });
-   const counting = workingScopeDays.slice(0, count);
-   console.log(counting);
-   console.log(busyDayData);
 
+   const counting = workingScopeDays.slice(0, count);
    const mainContentEl = document.getElementById('main-content');
 
    if (counting) {
@@ -156,18 +153,13 @@ function totalWorkingScope(day, deadlineValue) {
             date: formatDate(day),
             time: 8
          }
+
          workingScopeDays.push(workingDaysObj);
-
-         console.log(workingDaysObj);
-         console.log(day);
          countDays++;
-
       }
    }
-   console.log(workingScopeDays);
 
    freeTimeCount = (24 - 8 - 8) * countDays;
-   console.log(freeTimeCount);
    return freeTimeCount;
 }
 
@@ -177,25 +169,19 @@ function getTimeInHours(day, deadlineValue) {
    if (!busyDayData) {
       freeTimeCount = (24 - 8) * countDays;
    } else {
-      console.log(busyDayData);
       busyDayData.map(data => {
          time += Number(data.time);
-         console.log(new Date(data.date).getDate());
-         console.log(new Date(data.date).getFullYear());
 
          formatDate(new Date(data.date));
       })
-
 
       if (freeTimeCount < workingScope.value) {
 
          const negativeAnswer = 'There is not enough time!😞';
          renderAlertMsg(negativeAnswer, 'red');
       }
+
       totalWorkingScope(day, deadlineValue) - time;
-      console.log(day);
-      console.log(deadlineValue);
-      console.log(time);
    }
 
    const workingPlan = Math.floor(Number(workingScope.value / countDays));
@@ -204,7 +190,6 @@ function getTimeInHours(day, deadlineValue) {
       const workingPlanText = ' There are not enough hours in the day';
       renderAlertMsg(workingPlanText, 'red');
    }
-
 }
 
 function renderAlertMsg(text, color) {
