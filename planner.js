@@ -1,4 +1,4 @@
-const plannerForm = document.querySelector('#planner-form');
+let plannerForm = document.querySelector('#planner-form');
 const workingScope = document.querySelector('#working-scope');
 const deadline = document.querySelector('#deadline');
 const busyDate = document.querySelector('#busy-date');
@@ -33,8 +33,7 @@ addBtn.addEventListener('click', () => {
    busyDataItem.classList.add('busy-data-item');
 
    const busyDateElement = document.createElement('p');
-   busyDateElement.innerHTML = `<p style="color:white">Date: ${busyDate}</p>`;
-
+   busyDateElement.innerHTML = `<p style="color:white">Date: ${busyDate}</p>`
    const busyTimeElement = document.createElement('p');
    busyTimeElement.innerHTML = `<p style="color:white">Time: ${busyTime}</p>`;
 
@@ -82,9 +81,7 @@ plannerForm.addEventListener('submit', (event) => {
 function totalWorkingScope(day, deadlineValue) {
    while (day.getTime() <= deadlineValue.getTime()) {
       day.setDate(day.getDate() + 1);
-
       const isWeekend = day.getDay() === 0 || day.getDay() === 6;
-
       const dateMonth = (day.getMonth() + 1);
       const dateDay = day.getDate();
 
@@ -109,16 +106,17 @@ function getTimeInHours(day, deadlineValue) {
          time += Number(data.time);
          console.log(new Date(data.date).getDate());
       })
-   }
 
-   if (freeTimeCount < workingScope.value) {
-      const negativeAnswer = 'There is not enough time!😞';
-      renderAlertMsg(negativeAnswer, 'red');
-   } else {
-      const positiveAnswer = 'Get ready to work!😉';
-      renderAlertMsg(positiveAnswer, 'green');
+
+      if (freeTimeCount < workingScope.value) {
+         const negativeAnswer = 'There is not enough time!😞';
+         renderAlertMsg(negativeAnswer, 'red');
+      } else {
+         const positiveAnswer = 'Get ready to work!😉';
+         renderAlertMsg(positiveAnswer, 'green');
+      }
+      totalWorkingScope(day, deadlineValue) - time;
    }
-   totalWorkingScope(day, deadlineValue) - time;
 }
 
 function renderAlertMsg(text, color) {
@@ -158,7 +156,6 @@ function showResponse() {
    setTimeout(() => {
       responseContainer.style.display = 'flex';
       titleName.style.display = 'none';
-
    })
 }
 
