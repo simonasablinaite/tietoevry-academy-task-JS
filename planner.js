@@ -16,7 +16,28 @@ let freeTimeCount = 0;
 const celebrationDays = [[1, 1], [2, 16], [3, 11], [4, 20], [4, 21], [5, 1], [6, 24], [7, 6], [8, 15], [11, 1], [11, 2], [12, 24], [12, 25], [12, 26]];
 const busyDayData = [];
 
-addBtn.addEventListener('click', () => {
+const workingScopeDays = [];
+
+
+const addZero = (i) => {
+   if (i < 10) {
+      i = "0" + i;
+   }
+   return i;
+}
+const formatDate = (date) => {
+   let yearFormat = date.getFullYear();
+   let month = addZero(date.getMonth() + 1);
+   let day = addZero(date.getDate());
+
+   let dateArr = [yearFormat, month, day];
+
+   let result = dateArr.join('-').concat(" ");
+   return result;
+}
+
+addBtn.addEventListener('click', (event) => {
+   event.preventDefault();
    const busyDate = plannerForm['busy-date'].value;
    const busyTime = plannerForm['busy-time'].value;
 
@@ -27,6 +48,7 @@ addBtn.addEventListener('click', () => {
    }
 
    busyDayData.push(addedObj);
+   console.log(busyDayData);
 
    const busyDateAndTimeList = document.querySelector('#busy-date-and-time-list');
    const busyDataItem = document.createElement('div');
@@ -60,9 +82,9 @@ plannerForm.addEventListener('submit', (event) => {
 
    const form = event.target;
    const workingScope = form['working-scope'].value;
-   const deadline = form.deadline.value;
-   const busyDate = form['busy-date'].value;
-   const busyTime = form['busy-time'].value;
+   // const deadline = form.deadline.value;
+   // const busyDate = form['busy-date'].value;
+   // const busyTime = form['busy-time'].value;
 
    formValidation();
 
@@ -76,23 +98,73 @@ plannerForm.addEventListener('submit', (event) => {
    countDays = 0;
    totalWorkingScope(day, deadlineValue);
    getTimeInHours(day, deadlineValue);
+   console.log(workingScopeDays.length);
+   console.log(busyDayData[0]);
+   console.log(busyDayData.length);
+   for (let i = 0; i < workingScopeDays.length - 1; i++) {
+      console.log(workingScopeDays[i].date.length);
+      for (let j = 0; j < busyDayData.length; j++) {
+         console.log(busyDayData[j].date.length);
+         if (workingScopeDays[i].date.trim() == busyDayData[j].date) {
+            workingScopeDays[i].time -= busyDayData[j].time;
+         }
+      }
+   }
+   console.log(workingScopeDays);
+
+   let workingScopeDaysValue = workingScopeDays;
+
+   let count = 0;
+   let temp = Number(workingScope); //10 val
+   console.log(temp);
+   console.log(workingScopeDaysValue);
+   workingScopeDaysValue.map(element => {
+
+      if (temp > element.time) {
+         console.log(element.time);
+
+         temp -= element.time;
+         element.time = 0;
+         count++;
+      } else if (temp > 0) {
+         element.time -= temp;
+         temp = 0;
+         count++;
+      }
+   })
+   const counting = workingScopeDaysValue.slice(0, count);
+   console.log(counting);
+   console.log(workingScopeDaysValue);
+   plannerForm.reset();
 })
 
 function totalWorkingScope(day, deadlineValue) {
+
    while (day.getTime() <= deadlineValue.getTime()) {
+
       day.setDate(day.getDate() + 1);
       const isWeekend = day.getDay() === 0 || day.getDay() === 6;
       const dateMonth = (day.getMonth() + 1);
       const dateDay = day.getDate();
-
       const isHoliday = celebrationDays.some(holiday => dateMonth === holiday[0] && dateDay === holiday[1]);
 
       if (!isWeekend && !isHoliday) {
+         let workingDaysObj = {
+            date: formatDate(day),
+            time: 8
+         }
+         workingScopeDays.push(workingDaysObj);
+
+         console.log(workingDaysObj);
+         console.log(day);
          countDays++;
+
       }
    }
+   console.log(workingScopeDays);
 
-   freeTimeCount = (24 - 8) * countDays;
+   freeTimeCount = (24 - 8 - 8) * countDays;
+   console.log(freeTimeCount);
    return freeTimeCount;
 }
 
@@ -102,21 +174,35 @@ function getTimeInHours(day, deadlineValue) {
    if (!busyDayData) {
       freeTimeCount = (24 - 8) * countDays;
    } else {
+      console.log(busyDayData);
       busyDayData.map(data => {
          time += Number(data.time);
          console.log(new Date(data.date).getDate());
+         console.log(new Date(data.date).getFullYear());
+
+         formatDate(new Date(data.date));
       })
 
 
       if (freeTimeCount < workingScope.value) {
+
          const negativeAnswer = 'There is not enough time!😞';
          renderAlertMsg(negativeAnswer, 'red');
-      } else {
-         const positiveAnswer = 'Get ready to work!😉';
-         renderAlertMsg(positiveAnswer, 'green');
       }
       totalWorkingScope(day, deadlineValue) - time;
+      console.log(day);
+      console.log(deadlineValue);
+      console.log(time);
    }
+
+   const workingPlan = Math.floor(Number(workingScope.value / countDays));
+   const workingPlanText = 'Get ready to work!😉' + ` You must to written ${workingPlan} hours/day`;
+   renderAlertMsg(workingPlanText, 'green');
+   if (workingPlan > 24) {
+      const workingPlanText = ' There are not enough hours in the day';
+      renderAlertMsg(workingPlanText, 'red');
+   }
+
 }
 
 function renderAlertMsg(text, color) {
@@ -134,6 +220,7 @@ function formValidation() {
    workingScope.value;
    deadline.value;
    busyDate.value;
+   busyTime.value;
    let isValid = true;
    let inputMsg = '';
 
@@ -149,6 +236,23 @@ function formValidation() {
       isValid = false;
    }
 
+   if (busyTime.value > 23) {
+      inputMsg = 'There are only 24 hours in a day!';
+      renderAlertMsg(inputMsg, 'red');
+      isValid = false;
+   }
+
+   if (busyTime.value < 0) {
+      inputMsg = 'Input can not be a negative number!';
+      renderAlertMsg(inputMsg, 'red');
+      isValid = false;
+   }
+
+   if (workingScope.value < 0) {
+      inputMsg = 'Input can not be a negative number!';
+      renderAlertMsg(inputMsg, 'red');
+      isValid = false;
+   }
    return isValid;
 }
 

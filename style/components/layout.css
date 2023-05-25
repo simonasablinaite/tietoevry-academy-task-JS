@@ -79,7 +79,7 @@
   .form-control {
     gap: 40px;
   }
-}
-
-@media (min-width: 1200px) {
+  #alert-msg {
+    font-size: 30px;
+  }
 }
